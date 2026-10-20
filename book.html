@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Service - VKM ASSIST</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            DEFAULT: '#2563eb',
+                            hover: '#1d4ed8',
+                        },
+                        secondary: '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .service-option.selected {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+        }
+        .time-option.selected {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            color: #2563eb;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Top Header -->
+    <header class="bg-white border-b border-gray-100 py-4">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold text-sm">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <span class="text-gray-900 font-bold text-xl tracking-tight">VKM <span class="text-gray-500 text-xs font-normal block -mt-1">ASSIST</span></span>
+            </a>
+            <a href="index.html" class="text-sm text-gray-500 hover:text-primary flex items-center gap-1">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-2xl font-bold text-gray-900 mb-8">Book a Service</h1>
+
+            <!-- Stepper -->
+            <div class="flex items-center justify-between mb-12 relative">
+                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-0.5 bg-gray-200 -z-10"></div>
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center gap-2 bg-gray-50 px-2" id="step1-indicator">
+                    <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold z-10 step-circle">1</div>
+                    <span class="text-xs font-medium text-primary step-text">Service</span>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center gap-2 bg-gray-50 px-2" id="step2-indicator">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold z-10 step-circle">2</div>
+                    <span class="text-xs font-medium text-gray-500 step-text">Schedule</span>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center gap-2 bg-gray-50 px-2" id="step3-indicator">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold z-10 step-circle">3</div>
+                    <span class="text-xs font-medium text-gray-400 step-text">Details</span>
+                </div>
+                <!-- Step 4 -->
+                <div class="flex flex-col items-center gap-2 bg-gray-50 px-2" id="step4-indicator">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold z-10 step-circle">4</div>
+                    <span class="text-xs font-medium text-gray-400 step-text">Payment</span>
+                </div>
+                <!-- Step 5 -->
+                <div class="flex flex-col items-center gap-2 bg-gray-50 px-2" id="step5-indicator">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold z-10 step-circle">5</div>
+                    <span class="text-xs font-medium text-gray-400 step-text">Confirm</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+                
+                <!-- STEP 1 CONTENT -->
+                <div id="step1-content">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">What do you need help with today?</h2>
+                    <p class="text-gray-500 text-sm mb-8">Select a service category to get started.</p>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="service-grid">
+                        <!-- Items generated via JS -->
+                    </div>
+
+                    <div class="mt-8 flex justify-between items-center pt-6 border-t border-gray-100">
+                        <button class="px-5 py-2 border border-gray-200 text-gray-600 rounded font-medium text-sm flex items-center gap-2 hover:bg-gray-50" disabled>
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </button>
+                        <button id="btn-next-to-2" class="px-5 py-2 bg-blue-300 text-white rounded font-medium text-sm flex items-center gap-2 cursor-not-allowed" disabled>
+                            Next <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 2 CONTENT -->
+                <div id="step2-content" class="hidden">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">When would you like the service?</h2>
+                    <p class="text-gray-500 text-sm mb-8">Pick a date and time that works for you.</p>
+
+                    <div class="max-w-md">
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                                <i class="fa-regular fa-calendar text-primary"></i> Preferred Date
+                            </label>
+                            <input type="date" id="date-picker" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-700">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                                <i class="fa-regular fa-clock text-primary"></i> Preferred Time
+                            </label>
+                            <div class="grid grid-cols-2 gap-3" id="time-grid">
+                                <button class="time-option border border-gray-200 rounded-lg py-2.5 text-center text-sm font-medium text-gray-600 hover:border-primary transition-colors">08:00 AM</button>
+                                <button class="time-option border border-gray-200 rounded-lg py-2.5 text-center text-sm font-medium text-gray-600 hover:border-primary transition-colors">10:00 AM</button>
+                                <button class="time-option border border-gray-200 rounded-lg py-2.5 text-center text-sm font-medium text-gray-600 hover:border-primary transition-colors">12:00 PM</button>
+                                <button class="time-option border border-gray-200 rounded-lg py-2.5 text-center text-sm font-medium text-gray-600 hover:border-primary transition-colors">02:00 PM</button>
+                                <button class="time-option border border-gray-200 rounded-lg py-2.5 text-center text-sm font-medium text-gray-600 hover:border-primary transition-colors">04:00 PM</button>
+                                <button class="time-option border border-gray-200 rounded-lg py-2.5 text-center text-sm font-medium text-gray-600 hover:border-primary transition-colors">06:00 PM</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 flex justify-between items-center pt-6 border-t border-gray-100">
+                        <button id="btn-back-to-1" class="px-5 py-2 border border-gray-200 text-gray-600 rounded font-medium text-sm flex items-center gap-2 hover:bg-gray-50">
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </button>
+                        <button id="btn-next-to-3" class="px-5 py-2 bg-blue-300 text-white rounded font-medium text-sm flex items-center gap-2 cursor-not-allowed" disabled>
+                            Next <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 3 CONTENT -->
+                <div id="step3-content" class="hidden">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Your contact details</h2>
+                    <p class="text-gray-500 text-sm mb-8">We need this to reach you and confirm the booking.</p>
+
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                                <input type="text" id="contact-name" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-700" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+                                <input type="tel" id="contact-phone" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-700" placeholder="+1 555 000 0000">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="contact-email" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-700" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2"><i class="fa-solid fa-location-dot text-primary"></i> Service Address *</label>
+                            <input type="text" id="contact-address" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-700" placeholder="123 Main St, Apt 4B, City">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Special Notes</label>
+                            <textarea id="contact-notes" rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-gray-700" placeholder="Any specific instructions or details about the job..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 flex justify-between items-center pt-6 border-t border-gray-100">
+                        <button id="btn-back-to-2" class="px-5 py-2 border border-gray-200 text-gray-600 rounded font-medium text-sm flex items-center gap-2 hover:bg-gray-50">
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </button>
+                        <button id="btn-next-to-4" class="px-5 py-2 bg-blue-300 text-white rounded font-medium text-sm flex items-center gap-2 cursor-not-allowed" disabled>
+                            Next <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 4 CONTENT -->
+                <div id="step4-content" class="hidden">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Payment Method</h2>
+                    <p class="text-gray-500 text-sm mb-8">Choose how you would like to pay. No online payment required.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <label class="payment-option border-2 border-primary bg-blue-50 rounded-xl p-6 cursor-pointer flex flex-col gap-4 relative">
+                            <input type="radio" name="payment" value="Cash After Service" class="absolute opacity-0" checked>
+                            <div class="text-primary text-2xl"><i class="fa-solid fa-money-bill-wave"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-lg mb-1">Cash Payment</h3>
+                                <p class="text-gray-500 text-sm">Pay after the service is completed</p>
+                            </div>
+                        </label>
+                        <label class="payment-option border border-gray-200 rounded-xl p-6 cursor-pointer flex flex-col gap-4 relative hover:border-primary transition-colors">
+                            <input type="radio" name="payment" value="Bank Transfer" class="absolute opacity-0">
+                            <div class="text-gray-400 text-2xl option-icon"><i class="fa-solid fa-building-columns"></i></div>
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-lg mb-1">Bank Transfer</h3>
+                                <p class="text-gray-500 text-sm">Receive invoice and bank details</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-4 flex items-center gap-3 text-sm text-gray-600">
+                        <i class="fa-regular fa-calendar-check text-primary text-lg"></i>
+                        <p>Your booking has been received. Our team will contact you shortly and provide payment details.</p>
+                    </div>
+
+                    <div class="mt-12 flex justify-between items-center pt-6 border-t border-gray-100">
+                        <button id="btn-back-to-3" class="px-5 py-2 border border-gray-200 text-gray-600 rounded font-medium text-sm flex items-center gap-2 hover:bg-gray-50">
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </button>
+                        <button id="btn-next-to-5" class="px-5 py-2 bg-primary text-white rounded font-medium text-sm flex items-center gap-2 hover:bg-primary-hover">
+                            Next <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 5 CONTENT -->
+                <div id="step5-content" class="hidden">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Review your booking</h2>
+                    <p class="text-gray-500 text-sm mb-8">Please confirm the details below.</p>
+
+                    <div class="border border-gray-100 rounded-xl divide-y divide-gray-100 text-sm">
+                        <div class="grid grid-cols-2 p-4">
+                            <span class="text-gray-500">Service</span>
+                            <span class="font-medium text-gray-900 text-right" id="review-service">Ceiling Works</span>
+                        </div>
+                        <div class="grid grid-cols-2 p-4">
+                            <span class="text-gray-500">Date</span>
+                            <span class="font-medium text-gray-900 text-right" id="review-date">2026-09-30</span>
+                        </div>
+                        <div class="grid grid-cols-2 p-4">
+                            <span class="text-gray-500">Time</span>
+                            <span class="font-medium text-gray-900 text-right" id="review-time">08:00 AM</span>
+                        </div>
+                        <div class="grid grid-cols-2 p-4">
+                            <span class="text-gray-500">Name</span>
+                            <span class="font-medium text-gray-900 text-right" id="review-name">nagarasha vithusan</span>
+                        </div>
+                        <div class="grid grid-cols-2 p-4">
+                            <span class="text-gray-500">Phone</span>
+                            <span class="font-medium text-gray-900 text-right" id="review-phone">+94767875639</span>
+                        </div>
+                        <div class="grid grid-cols-2 p-4">
+                            <span class="text-gray-500">Email</span>
+                            <span class="font-medium text-gray-900 text-right" id="review-email">nagarasha.vithusan@gmail.com</span>
+                        </div>
+                        <div class="grid grid-cols-2 p-4">
+                            <span class="text-gray-500">Address</span>
+                            <span class="font-medium text-gray-900 text-right" id="review-address">varany</span>
+                        </div>
+                        <div class="grid grid-cols-2 p-4">
+                            <span class="text-gray-500">Notes</span>
+                            <span class="font-medium text-gray-900 text-right" id="review-notes">krmgkrmg</span>
+                        </div>
+                        <div class="grid grid-cols-2 p-4">
+                            <span class="text-gray-500">Payment</span>
+                            <span class="font-medium text-gray-900 text-right" id="review-payment">Cash After Service</span>
+                        </div>
+                        <div class="grid grid-cols-2 p-4 bg-gray-50 rounded-b-xl">
+                            <span class="text-gray-500 font-medium">Est. Amount</span>
+                            <span class="font-bold text-gray-900 text-right" id="review-amount">Rs. 7,500</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 flex justify-between items-center pt-6 border-t border-gray-100">
+                        <button id="btn-back-to-4" class="px-5 py-2 border border-gray-200 text-gray-600 rounded font-medium text-sm flex items-center gap-2 hover:bg-gray-50">
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </button>
+                        <button id="btn-confirm" class="px-5 py-2 bg-green-500 text-white rounded font-medium text-sm flex items-center gap-2 hover:bg-green-600">
+                            Confirm Booking <i class="fa-solid fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SUCCESS CONTENT -->
+                <div id="success-content" class="hidden text-center py-8">
+                    <div class="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">
+                        <i class="fa-solid fa-check-circle"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Booking Confirmed!</h2>
+                    <p class="text-gray-500 text-sm max-w-md mx-auto mb-8">Your booking has been received. Our team will contact you shortly and provide payment details.</p>
+
+                    <div class="bg-gray-50 rounded-xl p-6 text-sm text-left max-w-md mx-auto mb-8">
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <span class="text-gray-500">Booking ID:</span>
+                            <span class="font-medium text-gray-900 text-right" id="success-id">VKM-2026-951785</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <span class="text-gray-500">Service:</span>
+                            <span class="font-medium text-gray-900 text-right" id="success-service">Electrical Service</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <span class="text-gray-500">Date:</span>
+                            <span class="font-medium text-gray-900 text-right" id="success-date">2026-09-24</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <span class="text-gray-500">Time:</span>
+                            <span class="font-medium text-gray-900 text-right" id="success-time">04:00 PM</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <span class="text-gray-500">Est. Amount:</span>
+                            <span class="font-medium text-gray-900 text-right" id="success-amount">Rs. 4,000</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <span class="text-gray-500">Payment:</span>
+                            <span class="font-medium text-gray-900 text-right" id="success-payment">Cash After Service</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-4">
+                        <a href="dashboard.html" class="px-6 py-2.5 border border-gray-200 text-gray-700 rounded font-medium text-sm hover:bg-gray-50">View My Bookings</a>
+                        <a href="index.html" class="px-6 py-2.5 bg-primary text-white rounded font-medium text-sm hover:bg-primary-hover">Back Home</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const servicesData = [
+            { id: 1, name: "Plumbing Service", price: "3,500", icon: "fa-wrench" },
+            { id: 2, name: "Electrical Service", price: "4,000", icon: "fa-bolt" },
+            { id: 3, name: "Home Maintenance", price: "3,200", icon: "fa-house-chimney-crack" },
+            { id: 4, name: "Office Maintenance", price: "5,500", icon: "fa-building" },
+            { id: 5, name: "AC Service & Repair", price: "4,500", icon: "fa-fan" },
+            { id: 6, name: "Painting Service", price: "6,000", icon: "fa-paint-roller" },
+            { id: 7, name: "Carpentry Service", price: "4,500", icon: "fa-hammer" },
+            { id: 8, name: "Furniture Assembly", price: "2,800", icon: "fa-couch" },
+            { id: 9, name: "Tile Installation", price: "5,200", icon: "fa-border-all" },
+            { id: 10, name: "Ceiling Works", price: "7,500", icon: "fa-chess-board" },
+            { id: 11, name: "Waterproofing", price: "9,500", icon: "fa-shield-halved" },
+            { id: 12, name: "Roofing Service", price: "12,500", icon: "fa-house" },
+            { id: 13, name: "Door & Window Repair", price: "4,000", icon: "fa-door-open" },
+            { id: 14, name: "CCTV Installation", price: "12,500", icon: "fa-video" },
+            { id: 15, name: "Smart Home Setup", price: "9,500", icon: "fa-mobile-screen" },
+            { id: 16, name: "Deep Cleaning", price: "3,000", icon: "fa-broom" },
+            { id: 17, name: "Pest Control", price: "4,500", icon: "fa-bug" },
+            { id: 18, name: "Garden Maintenance", price: "3,500", icon: "fa-leaf" },
+            { id: 19, name: "Commercial Maintenance", price: "18,500", icon: "fa-city" },
+            { id: 20, name: "Emergency Service", price: "8,000", icon: "fa-triangle-exclamation" }
+        ];
+
+        const serviceGrid = document.getElementById('service-grid');
+        const btnNextTo2 = document.getElementById('btn-next-to-2');
+        let selectedService = null;
+
+        // Render services
+        servicesData.forEach(service => {
+            const btn = document.createElement('button');
+            btn.className = 'service-option flex flex-col items-center justify-center p-4 border border-gray-200 rounded-xl hover:border-primary transition-all text-center';
+            btn.innerHTML = `
+                <div class="text-2xl text-gray-700 mb-3"><i class="fa-solid ${service.icon}"></i></div>
+                <h3 class="font-semibold text-gray-900 text-sm mb-1">${service.name}</h3>
+                <p class="text-xs text-gray-500">From Rs. ${service.price}</p>
+            `;
+            btn.addEventListener('click', () => {
+                // Deselect all
+                document.querySelectorAll('.service-option').forEach(el => {
+                    el.classList.remove('selected');
+                    el.querySelector('.fa-solid').classList.remove('text-primary');
+                    el.querySelector('h3').classList.remove('text-primary');
+                });
+                
+                // Select this
+                btn.classList.add('selected');
+                btn.querySelector('.fa-solid').classList.add('text-primary');
+                btn.querySelector('h3').classList.add('text-primary');
+                selectedService = service.id;
+                
+                // Enable next button
+                btnNextTo2.disabled = false;
+                btnNextTo2.classList.remove('bg-blue-300', 'cursor-not-allowed');
+                btnNextTo2.classList.add('bg-primary', 'hover:bg-primary-hover', 'cursor-pointer');
+            });
+            serviceGrid.appendChild(btn);
+        });
+
+        // Step navigation
+        const step1Content = document.getElementById('step1-content');
+        const step2Content = document.getElementById('step2-content');
+        const step3Content = document.getElementById('step3-content');
+        const step4Content = document.getElementById('step4-content');
+        const step5Content = document.getElementById('step5-content');
+        const successContent = document.getElementById('success-content');
+        
+        const step1Ind = document.getElementById('step1-indicator');
+        const step2Ind = document.getElementById('step2-indicator');
+        const step3Ind = document.getElementById('step3-indicator');
+        const step4Ind = document.getElementById('step4-indicator');
+        const step5Ind = document.getElementById('step5-indicator');
+
+        function updateStepIndicator(stepInd, status) {
+            const circle = stepInd.querySelector('.step-circle');
+            const text = stepInd.querySelector('.step-text');
+            if (status === 'completed') {
+                circle.innerHTML = '<i class="fa-solid fa-check"></i>';
+                circle.className = 'w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-bold z-10 step-circle';
+                text.className = 'text-xs font-medium text-primary step-text';
+            } else if (status === 'active') {
+                circle.innerHTML = stepInd.id.replace('step', '').replace('-indicator', '');
+                circle.className = 'w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold z-10 step-circle';
+                text.className = 'text-xs font-medium text-primary step-text';
+            } else {
+                circle.innerHTML = stepInd.id.replace('step', '').replace('-indicator', '');
+                circle.className = 'w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-sm font-bold z-10 step-circle';
+                text.className = 'text-xs font-medium text-gray-400 step-text';
+            }
+        }
+
+        btnNextTo2.addEventListener('click', () => {
+            step1Content.classList.add('hidden');
+            step2Content.classList.remove('hidden');
+            updateStepIndicator(step1Ind, 'completed');
+            updateStepIndicator(step2Ind, 'active');
+        });
+
+        document.getElementById('btn-back-to-1').addEventListener('click', () => {
+            step2Content.classList.add('hidden');
+            step1Content.classList.remove('hidden');
+            updateStepIndicator(step1Ind, 'active');
+            updateStepIndicator(step2Ind, 'inactive');
+        });
+
+        const btnNextTo4 = document.getElementById('btn-next-to-4');
+        document.getElementById('btn-next-to-3').addEventListener('click', () => {
+            step2Content.classList.add('hidden');
+            step3Content.classList.remove('hidden');
+            updateStepIndicator(step2Ind, 'completed');
+            updateStepIndicator(step3Ind, 'active');
+        });
+
+        document.getElementById('btn-back-to-2').addEventListener('click', () => {
+            step3Content.classList.add('hidden');
+            step2Content.classList.remove('hidden');
+            updateStepIndicator(step2Ind, 'active');
+            updateStepIndicator(step3Ind, 'inactive');
+        });
+
+        document.getElementById('btn-next-to-4').addEventListener('click', () => {
+            step3Content.classList.add('hidden');
+            step4Content.classList.remove('hidden');
+            updateStepIndicator(step3Ind, 'completed');
+            updateStepIndicator(step4Ind, 'active');
+        });
+
+        document.getElementById('btn-back-to-3').addEventListener('click', () => {
+            step4Content.classList.add('hidden');
+            step3Content.classList.remove('hidden');
+            updateStepIndicator(step3Ind, 'active');
+            updateStepIndicator(step4Ind, 'inactive');
+        });
+
+        document.getElementById('btn-next-to-5').addEventListener('click', () => {
+            // Populate review data
+            const serviceObj = servicesData.find(s => s.id === selectedService);
+            document.getElementById('review-service').innerText = serviceObj ? serviceObj.name : '';
+            document.getElementById('review-amount').innerText = serviceObj ? 'Rs. ' + serviceObj.price : '';
+            document.getElementById('review-date').innerText = datePicker.value;
+            document.getElementById('review-time').innerText = selectedTime;
+            document.getElementById('review-name').innerText = document.getElementById('contact-name').value;
+            document.getElementById('review-phone').innerText = document.getElementById('contact-phone').value;
+            document.getElementById('review-email').innerText = document.getElementById('contact-email').value;
+            document.getElementById('review-address').innerText = document.getElementById('contact-address').value;
+            document.getElementById('review-notes').innerText = document.getElementById('contact-notes').value;
+            
+            const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+            document.getElementById('review-payment').innerText = selectedPayment;
+
+            step4Content.classList.add('hidden');
+            step5Content.classList.remove('hidden');
+            updateStepIndicator(step4Ind, 'completed');
+            updateStepIndicator(step5Ind, 'active');
+        });
+
+        document.getElementById('btn-back-to-4').addEventListener('click', () => {
+            step5Content.classList.add('hidden');
+            step4Content.classList.remove('hidden');
+            updateStepIndicator(step4Ind, 'active');
+            updateStepIndicator(step5Ind, 'inactive');
+        });
+
+        document.getElementById('btn-confirm').addEventListener('click', () => {
+            step5Content.classList.add('hidden');
+            successContent.classList.remove('hidden');
+            
+            document.querySelector('.flex.items-center.justify-between.mb-12.relative').classList.add('hidden');
+
+            const serviceObj = servicesData.find(s => s.id === selectedService);
+            document.getElementById('success-id').innerText = 'VKM-2026-' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('success-service').innerText = serviceObj ? serviceObj.name : '';
+            document.getElementById('success-date').innerText = datePicker.value;
+            document.getElementById('success-time').innerText = selectedTime;
+            document.getElementById('success-amount').innerText = serviceObj ? 'Rs. ' + serviceObj.price : '';
+            document.getElementById('success-payment').innerText = document.querySelector('input[name="payment"]:checked').value;
+        });
+
+        // Time selection logic
+        const timeOptions = document.querySelectorAll('.time-option');
+        const datePicker = document.getElementById('date-picker');
+        const btnNextTo3 = document.getElementById('btn-next-to-3');
+        let selectedTime = null;
+        
+        function checkStep2Validity() {
+            if (datePicker.value && selectedTime) {
+                btnNextTo3.disabled = false;
+                btnNextTo3.classList.remove('bg-blue-300', 'cursor-not-allowed');
+                btnNextTo3.classList.add('bg-primary', 'hover:bg-primary-hover', 'cursor-pointer');
+            } else {
+                btnNextTo3.disabled = true;
+                btnNextTo3.classList.add('bg-blue-300', 'cursor-not-allowed');
+                btnNextTo3.classList.remove('bg-primary', 'hover:bg-primary-hover', 'cursor-pointer');
+            }
+        }
+
+        datePicker.addEventListener('change', checkStep2Validity);
+
+        timeOptions.forEach(btn => {
+            btn.addEventListener('click', () => {
+                timeOptions.forEach(el => el.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedTime = btn.innerText;
+                checkStep2Validity();
+            });
+        });
+
+        // Step 3 Validation
+        const contactInputs = ['contact-name', 'contact-phone', 'contact-address'];
+        function checkStep3Validity() {
+            const isValid = contactInputs.every(id => document.getElementById(id).value.trim() !== '');
+            if (isValid) {
+                btnNextTo4.disabled = false;
+                btnNextTo4.classList.remove('bg-blue-300', 'cursor-not-allowed');
+                btnNextTo4.classList.add('bg-primary', 'hover:bg-primary-hover', 'cursor-pointer');
+            } else {
+                btnNextTo4.disabled = true;
+                btnNextTo4.classList.add('bg-blue-300', 'cursor-not-allowed');
+                btnNextTo4.classList.remove('bg-primary', 'hover:bg-primary-hover', 'cursor-pointer');
+            }
+        }
+
+        contactInputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', checkStep3Validity);
+        });
+        
+        // Payment styling
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        paymentOptions.forEach(option => {
+            option.querySelector('input').addEventListener('change', (e) => {
+                paymentOptions.forEach(opt => {
+                    opt.classList.remove('border-2', 'border-primary', 'bg-blue-50');
+                    opt.classList.add('border', 'border-gray-200');
+                    opt.querySelector('.option-icon')?.classList.replace('text-primary', 'text-gray-400');
+                });
+                option.classList.remove('border', 'border-gray-200');
+                option.classList.add('border-2', 'border-primary', 'bg-blue-50');
+                option.querySelector('.option-icon')?.classList.replace('text-gray-400', 'text-primary');
+            });
+        });
+    </script>
+<script src="assets/js/common.js"></script>`n</body>
+</html>

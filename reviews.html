@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - VKM ASSIST</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            DEFAULT: '#2563eb',
+                            hover: '#1d4ed8',
+                        },
+                        secondary: '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-gray-50 flex flex-col min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-10 h-10 bg-primary rounded flex items-center justify-center text-white font-bold text-xl"><i class="fa-solid fa-house-chimney"></i></div>
+                    <span class="text-gray-900 font-bold text-2xl tracking-tight">VKM <span class="text-gray-500 text-sm font-normal block -mt-1">ASSIST</span></span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 text-sm font-medium hover:text-primary">Home</a>
+                    <a href="about.html" class="text-gray-600 text-sm font-medium hover:text-primary">About</a>
+                    <a href="services.html" class="text-gray-600 text-sm font-medium hover:text-primary">Services</a>
+                    <a href="reviews.html" class="text-primary text-sm font-medium">Reviews</a>
+                    <a href="faq.html" class="text-gray-600 text-sm font-medium hover:text-primary">FAQ</a>
+                    <a href="contact.html" class="text-gray-600 text-sm font-medium hover:text-primary">Contact</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="login.html" class="text-gray-600 text-sm font-medium hover:text-primary">My Account</a>
+                    <a href="book.html" class="bg-primary hover:bg-primary-hover text-white px-5 py-2.5 rounded text-sm font-medium transition-colors">Book a Service <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="pt-20 pb-16 bg-white text-center border-b border-gray-100">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-primary font-bold text-sm tracking-widest uppercase mb-4">TESTIMONIALS</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">What Our Clients Say</h1>
+            <div class="flex items-center justify-center gap-2 text-xl">
+                <div class="flex text-yellow-400">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <span class="font-bold text-gray-900">4.9/5</span>
+            </div>
+            <p class="text-gray-500 mt-2">Based on over 1,200 verified reviews.</p>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <main class="flex-grow py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="reviews-grid">
+            <!-- Reviews will be generated here -->
+        </div>
+    </main>
+
+    <!-- Minimal Footer -->
+    <footer class="bg-[#0f172a] pt-16 pb-8 text-center text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4"><p>© 2026 VKM ASSIST. All rights reserved.</p></div>
+    </footer>
+
+    <script>
+        const reviewData = [
+            { text: "The AC repair team was incredibly fast and professional. They diagnosed the issue quickly and had it running perfectly within an hour.", author: "John Doe", location: "Jaffna" },
+            { text: "I've used them for both plumbing and electrical work. Always on time, very transparent about pricing.", author: "Sarah Smith", location: "Colombo" },
+            { text: "Excellent service for our office maintenance. It's so convenient having one company handle everything.", author: "Michael Roberts", location: "Kandy" },
+            { text: "Very polite technicians and they cleaned up after themselves once the carpentry work was done.", author: "Priya P.", location: "Galle" },
+            { text: "Booked a deep clean before moving into our new house. The team did an amazing job, looks brand new!", author: "David W.", location: "Jaffna" },
+            { text: "Fixed our leaking roof just before the heavy rains started. Lifesavers! Great price too.", author: "Anil K.", location: "Vavuniya" }
+        ];
+
+        const grid = document.getElementById('reviews-grid');
+        reviewData.forEach(r => {
+            grid.innerHTML += `
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <div class="flex text-yellow-400 text-sm mb-4">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"${r.text}"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center font-bold text-primary">${r.author.charAt(0)}</div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 text-sm">${r.author}</h4>
+                            <p class="text-xs text-gray-500">${r.location}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+<script src="assets/js/common.js"></script>`n</body>
+</html>
